@@ -7,13 +7,15 @@ shinyUI(pageWithSidebar(
 
   # Application title
   headerPanel("Foodborne Chicago Tweets"),
-
+   
   sidebarPanel(
     selectInput(inputId = "category",
       label = "Select category label",
       choices = c("All", "Good", "Junk"),
       selected = "All"),
     checkboxInput("rt", "Show Retweets", FALSE),
+    br(),
+    uiOutput("day.slider"),
     br(),
     actionButton("refresh", "Click to Refresh Data")
   ),
