@@ -53,12 +53,15 @@ shinyServer(function(input, output) {
     df <- subset.data()
     tmp <- as.data.frame(table(df$created_at2, df$category))
     tmp$Var1 <- as.character(tmp$Var1)
-    tmp$Var2 <- as.character(tmp$Var2)    
+    tmp$Var2 <- as.character(tmp$Var2)
+    overall.len <- length(unique(tmp$Var1))
+    ticks <- c(seq(1, overall.len, ceiling(overall.len / 10)), overall.len)
     
     p <- ggplot(tmp) + geom_point(aes(x=Var1, y=Freq, colour=Var2)) +
          geom_line(aes(x=Var1, y=Freq, colour=Var2, group=Var2)) +
          xlab("Date") + ylab("Count of Tweets") +
-         scale_colour_discrete(name="Tweet Label")
+         scale_colour_discrete(name="Tweet Label") +
+         scale_x_discrete(breaks=tmp[ticks, "Var1"])
     print(p)
   })
 
